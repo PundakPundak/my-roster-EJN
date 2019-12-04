@@ -33,10 +33,17 @@ app.get(`/teams/:teamName`, function(request, response){
             const allPlayersArray = parsedAPIinJSON.league.standard
             const teamIdFromReqParam =  teamToIDs[teamNameFromReqParam]
             console.log(teamIdFromReqParam)
-            //const playersFilteredArray = allPlayes.filter()
-            //Optional - Delete later
-            //response.send()
-            //
+            const playersFilteredArray = allPlayersArray.filter( player => 
+                (player.teamId == teamIdFromReqParam) && (player.isActive == true) )
+            
+            FinalArray = playersFilteredArray.map(player => 
+                {return {   firstName: player.firstName, 
+                            LastName: player.lastName, 
+                            jersey: player.jersey, 
+                            pos:player.pos         
+                            } 
+                } )   
+            response.send(FinalArray)
         })
     })   
 })
